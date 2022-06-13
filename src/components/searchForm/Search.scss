@@ -1,0 +1,21 @@
+.search-from{
+    position: relative;
+    .dropped-result{
+        position: absolute;
+        z-index: 5;
+        background-color: white;
+        top: 100%;
+        width: 250px;
+        left: 0;
+        box-shadow: 0 0 20px 0;
+        display: none;
+        &.active{
+            display: block;
+        }
+        ul{
+            li{
+                padding: 15px 12px;
+            }
+        }
+    }
+}
