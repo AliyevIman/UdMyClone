@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 import { BASE_URL } from "../api/BaseConfig";
 import CourseLessons from "../components/course-lessons/CourseLessons";
 import { AddToCart } from "../Redux/Action/CartAction";
-
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const CourseDetail = () => {
   const { id } = useParams();
   const [course, setcourse] = useState(null);
@@ -19,13 +20,18 @@ const CourseDetail = () => {
   useEffect(() => {
     getCourseById(id);
   }, [id]);
-  const handlerAddToCart =(id)=>{
+  const notify = () => toast(`${course.courseName} sebete elave olundu`)
+
+  const handlerAddToCart =(id,name)=>{
     const findItem  = cartitems.length>0 ? cartitems.find(ct=>ct.id===id):null;
     const quantity  = findItem?findItem.quantity +1 :1;
     {dispatch(AddToCart(id,quantity))}
+   notify(name);
   }
+
   return (
     <section className="course-detail mt-5" style={{ marginTop: "10rem" }}>
+      <ToastContainer/>
       {course ? (
         <div className="container">
           <div className="row">

@@ -8,6 +8,7 @@ import Home from '../pages/Home'
 import LoginPage from '../pages/LoginPage'
 import Register from '../pages/Register'
 import Shop from '../pages/Shop'
+import Task from '../pages/Task'
 
 const MyRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const MyRoutes = () => {
         <Route path="/shop" element={<Shop/>}/>
         <Route path='/search/:term' element={<FilterCourse/>} />
         <Route path='/explore' element={<Explorepage/>} />
+        <Route path='/task' element={<Task/>} />
 
     </Routes>
   )

@@ -1,10 +1,8 @@
-import { DeleteOutlineOutlined } from "@material-ui/icons";
 import { Container, Grid } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AddToCart, ClearAll, RemoveCart } from "../Redux/Action/CartAction";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { useState,createContext } from "react";
 const Shop = () => {
   const { cartitems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -86,7 +84,6 @@ const Shop = () => {
             <div className="text-center card p-4">
               <p>
               Total : 
-
                 {cartitems.reduce(
                   (total, b) =>
                    total +
