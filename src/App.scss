@@ -199,7 +199,7 @@
 }
 
 .about-section {
-  background-image: url(../public/image/bg-05.e2dd8b42.jpg);
+  background-image: url(../public/image/bg-05.jpg);
   background-position: 50%;
   background-size: fixed;
   padding-top: 25px;
@@ -274,12 +274,6 @@
     font-weight: 600;
   }
 }
-.Task{
-  background-image: url("../public/image/bg-05.e2dd8b42.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 100vh;
-  width: 100%;
- 
+.raitig-active{
+  color: goldenrod;
 }

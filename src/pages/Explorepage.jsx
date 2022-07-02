@@ -11,34 +11,43 @@ function valuetext(value) {
   return `${value}AZN`;
 }
 const Explorepage = () => {
-  const [price, setValue] = React.useState([0, 500]);
+  const [price, setValue] = React.useState([0, 5000]);
   const [sortBy, setsortBy] = useState(2);
   const [instructors, setinstructors] = React.useState([]);
   const [selectedInsturctors, setselectedInsturctors] = React.useState([]);
   const [courses, setcourses] = React.useState([]);
-
+  const [raiting, setraiting] = useState(0);
   const getInstructors = async () => {
     const { data } = await axios.get(BASE_URL + "api/Instructor");
     setinstructors(data);
   };
-
-  // const checkedInstructors = (e) => {
-  //   const i = e.target.value;
-  // };
-  const getCourse = useCallback(async()=>{
-    const {data}=  await axios.get(`${BASE_URL}api/course/filter/${encodeURIComponent(" ")}/5/${price[1]}/${encodeURIComponent(JSON.stringify(selectedInsturctors))}/${sortBy}`);
-      setcourses(data);
-  },[price,selectedInsturctors,sortBy]);
+  const getCourse = useCallback(async () => {
+    const { data } = await axios.post(
+      `${BASE_URL}api/course/filter`,{
+        minPrice:price[0],
+        maxPrice:price[1],
+        sortBy,
+        Rating: raiting,
+        instructorIds :selectedInsturctors
+      }
+    );
+    setcourses(data);
+  }, [price, sortBy, raiting,selectedInsturctors]);
 
   useEffect(() => {
+    getCourse();
+  }, [getCourse]);
+  useEffect(() => {
     getInstructors();
-    getCourse()
   }, []);
-  // const CeheckedInsturctors = (e) => {
-  //   const instID = Number(e.target.value);
-  //   if (e.target.checked) {
-  //   }
-  // };
+  const checkedInstructor=(e)=>{
+    const instId=Number(e.target.value);
+    if(e.target.checked){
+      setselectedInsturctors(i=>[...i,instId])
+    }else{
+      setselectedInsturctors(ins=>ins.filter(i=>i!==instId))
+    }
+  }
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -51,19 +60,17 @@ const Explorepage = () => {
               <select
                 onChange={(e) => setsortBy(e.target.value)}
                 className="form-control"
-                name=""
-                id=""
               >
-                <option value="2">New</option>
+                <option value={2}>New</option>
 
-                <option value="1">Pirce Low to High</option>
-                <option value="0">Pirce High to Low</option>
+                <option value={1}>Pirce Low to High</option>
+                <option value={0}>Pirce High to Low</option>
               </select>
             </div>
             <div className="filter-item ">
               <h6>Price:</h6>
               <Slider
-                max={2500}
+                max={5000}
                 min={0}
                 value={price}
                 onChange={handleChange}
@@ -74,28 +81,18 @@ const Explorepage = () => {
             <div className="filter-item ">
               <h6>Raiting:</h6>
               <ul className="list-unstyled d-flex">
-                <li>
-                  <StarOutlineIcon />
-                </li>
-                <li>
-                  <StarOutlineIcon />
-                </li>
-                <li>
-                  <StarOutlineIcon />
-                </li>
-                <li>
-                  <StarOutlineIcon />
-                </li>
-                <li>
-                  <StarOutlineIcon />
-                </li>
+                {[1, 2, 3, 4, 5].map((c) => (
+                  <li onClick={() => setraiting(c)}>
+                    <StarOutlineIcon  className={c<raiting ?"raitig-active":""} />
+                  </li>
+                ))}
               </ul>
             </div>
             <div className="filter-item ">
               {instructors.map((ins) => (
                 <FormGroup>
                   <FormControlLabel
-                    control={<Checkbox defaultChecked />}
+                    control={<Checkbox value={ins.id} onChange={e=>checkedInstructor(e)}  />}
                     label={`${ins.fullName}`}
                   />
                 </FormGroup>
@@ -104,7 +101,11 @@ const Explorepage = () => {
           </div>
         </div>
         <div className="col-lg-9">
-          <PopularCourses />
+          <div className="row">
+            {courses.courses?.map((course) => (
+              <CourseCard key={course.courseId} courseInfo={course} />
+            ))}
+          </div>
         </div>
       </div>
     </Container>

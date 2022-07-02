@@ -6,7 +6,7 @@ import {BASE_URL} from "../../api/BaseConfig";
 const PopularCourses = () => {
   const [courses, setcourses] = useState([])
   const getCourses=()=>{
-    fetch(BASE_URL+"api/course/getall",{
+    fetch(BASE_URL+"api/course",{
       method:"Get",
       headers:{
         "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiI4M2E5ZmM5Yy0wNDc1LTQ0MjgtYTM3OC1hYTIzYTQwN2NmZDYiLCJGaXJzdG5hbWUiOiJYZXlyYW5zYSIsIkxhc3RuYW1lIjoiQWxpeWV2YSIsIkVtYWlsIjoieGV5cmFuc2FAZ21haWwuY29tIiwiZXhwIjoxNjUzNzU4ODg0LCJpc3MiOiJKV1RBdXRoZW50aWNhdGlvblNlcnZlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NzExMy8ifQ.rPaYYOUk5DniWlE5ctX8KFdbXZw-qnfX52Kw0jkq8G0"

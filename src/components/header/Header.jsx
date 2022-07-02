@@ -40,7 +40,8 @@ const Header = () => {
                           (total, item) => total + item.quantity,
                           0
                         )
-                      : 0}
+                      : 0
+                    }
                   </Link>
                 </li>
                 <li>

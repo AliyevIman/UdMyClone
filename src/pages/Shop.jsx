@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AddToCart, ClearAll, RemoveCart } from "../Redux/Action/CartAction";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { Link } from "react-router-dom";
 const Shop = () => {
   const { cartitems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -89,19 +90,24 @@ const Shop = () => {
                    total +
                     (b.discount > 0 ? b.discount : b.price) * b.quantity,
                   0
-                )}
+                ).toFixed(2)}
 
                 ${" "}
               </p>
+               <Link to="/" >
               <button  className="btn btn-outline-success w-100 my-3 d-block">
-                Purchase
+                Sifarisi tamamla
               </button>
+                
+                 </Link>
               <button onClick={()=>dispatch(ClearAll())} className="btn btn-outline-danger">Remove All</button>
             </div>
           </Grid>
         </Grid>
       ) : (
-        <p className="alert alert-danger">Cart Is Empty</p>
+        <p className="alert alert-danger">Cart Is Empty
+        👱‍♀️ 🧙‍♀️
+        </p>
       )}
     </Container>
 

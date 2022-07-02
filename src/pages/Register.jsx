@@ -23,7 +23,7 @@ const Register = () => {
      }
   },[myUserInfo.userInfo,navi])
   return (
-    <div className="container my-5">
+    <div className="container my-5">  
       <div className="row justify-content-center">
         <div className="col-lg-6">
           <h1 className="fs-5 mb-4">Register</h1>

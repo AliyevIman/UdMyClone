@@ -12,18 +12,21 @@ const Search = () => {
   const [courses, setcourses] = useState([]);
   const getSearch =useCallback( async (q) => {
    if(searchterm!==""){
-    let { data } = await axios.get(BASE_URL + "api/Course/filter/" + encodeURIComponent(searchterm));
-    setcourses(data)
+    let { data } = await axios.post(BASE_URL + "api/Course/filter/" + {q:searchterm},{
+      headers:{
+        "Content-Type":"aplication/json-patch+json"
+      },
+    });
+    setcourses(data.courses)
    } else{
      setcourses([])
    }
   },[searchterm])
   useEffect(() => {
-    getSearch();
+    getSearch();  
   }, [searchterm]);
 const inputRef = useRef(null)
 const resultRef = useRef(null)
-
  useEffect(() => {
   inputRef.current.addEventListener("focus", () => {
     resultRef.current.classList.add("active");
@@ -55,7 +58,7 @@ const resultRef = useRef(null)
           {courses?.map((c)=>(  
             <li key={c.courseId}>
               <Link to={`/course-details/${c.courseId} `}>{c.courseName}</Link>
-              
+        
               </li>
           ))}
         </ul>
